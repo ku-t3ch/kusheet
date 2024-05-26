@@ -1,4 +1,4 @@
-import { InboxIcon, SearchIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 
 export default function Index() {
     return (
@@ -14,7 +14,7 @@ export default function Index() {
                     <div>ไม่พบข้อมูล</div>
                 </div>
             </div> */}
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 {[...new Array(9).values()].map((_, index) => (
                     <div className="border p-3 flex flex-col gap-5" key={index}>
                         <div className="flex flex-col">
