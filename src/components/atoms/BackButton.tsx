@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
-import { Button } from "./ui/button";
 import { ChevronLeftIcon } from "lucide-react";
+import { Button } from "../ui/button";
 
 interface Props { }
 

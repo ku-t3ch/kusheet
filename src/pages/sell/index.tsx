@@ -1,10 +1,5 @@
-import SellConsent from "@/components/sell/SellConsent";
-import { Button } from "@/components/ui/button";
+import SellSheet from "@/modules/sell/pages/SellSheet";
 
 export default function Index() {
-    return (
-        <>
-            <SellConsent />
-        </>
-    )
+  return <SellSheet />
 }
