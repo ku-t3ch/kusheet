@@ -1,5 +1,5 @@
-import SellSheet from "@/modules/sell/pages/SellSheet";
+import SellSheets from "@/modules/sell/pages/SellSheets";
 
 export default function Index() {
-  return <SellSheet />
+  return <SellSheets />
 }
