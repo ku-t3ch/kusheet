@@ -1,12 +1,20 @@
 import Logo from "@/components/molecules/logo/Logo";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { MenuIcon, MoonIcon, SunIcon } from "lucide-react";
+import { LogInIcon, MenuIcon, MoonIcon, SunIcon } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTranslation } from 'next-i18next'
 
 const menus = [
   {
@@ -28,7 +36,10 @@ const menus = [
 
 export default function HeaderTypeA() {
   const { setTheme, theme } = useTheme();
+  const { data: session, status } = useSession();
   const { pathname } = useRouter();
+  const { t } = useTranslation('common')
+  
   const isCurrentPath = (href: string) => pathname === href;
 
   return (
@@ -56,29 +67,6 @@ export default function HeaderTypeA() {
             <Button variant="ghost">{item.label}</Button>
           </Link>
         ))}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              {theme === "light" ? (
-                <SunIcon className="h-5 w-5" />
-              ) : (
-                <MoonIcon className="h-5 w-5" />
-              )}
-              <span className="sr-only">Toggle user menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>
-              Light
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
-              Dark
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>
-              System
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
       <Sheet>
         <SheetTrigger asChild>
@@ -111,6 +99,34 @@ export default function HeaderTypeA() {
           </nav>
         </SheetContent>
       </Sheet>
+      {status === "authenticated" ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+            {/* <DropdownMenuItem onClick={() => setTheme("light")}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>
+              System
+            </DropdownMenuItem> */}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Button onClick={() => void signIn("google")} variant="ghost">
+          <LogInIcon size={15} />
+        </Button>
+      )}
     </header>
   );
 }

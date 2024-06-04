@@ -28,7 +28,7 @@ function BuySheet() {
             <li>คิดไม่ออก</li>
             <li>คิดไม่ออก</li>
           </ul>
-          <Button className="h-12 my-4 px-24">ซื้อชีท</Button>
+          <Button className="w-full md:w-fit md:px-20 px-0">ซื้อชีท</Button>
         </div>
       </div>
       <ReviewSection />
